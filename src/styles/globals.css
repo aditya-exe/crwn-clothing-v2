@@ -4,5 +4,5 @@
 
 
 body {
-    @apply dark:bg-slate-800 font-mono;
+    @apply dark:bg-slate-800 font-sans leading-relaxed;
 }
