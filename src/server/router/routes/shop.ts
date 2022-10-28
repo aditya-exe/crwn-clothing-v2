@@ -52,3 +52,22 @@ export const shopRouter = createRouter()
             }
         }
     })
+    .mutation("fill", {
+        input: z.object(
+            {
+                id: z.number(),
+                name: z.string(),
+                imageUrl: z.string(),
+                price: z.number(),
+            }),
+        resolve: async ({ input, ctx }) => {
+            return await ctx.prisma.mens.create({
+                data: {
+                    id: input.id,
+                    name: input.name,
+                    imageUrl: input.imageUrl,
+                    price: input.price,
+                }
+            })
+        }
+    })
