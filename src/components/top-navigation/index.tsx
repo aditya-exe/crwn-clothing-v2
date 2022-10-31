@@ -1,4 +1,5 @@
 import { signOut, useSession } from "next-auth/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import CartIcon from "../cart-icon";
 
@@ -16,13 +17,13 @@ const TopNavigation = () => {
     }
 
     return (
-        <div className="flex min-w-full justify-between bg-gradient-to-r from-violet-700 to-fuchsia-800 rounded-b-xl items-center p-8">
+        <div className="flex min-w-full justify-between bg-purple-800 shadow-md rounded-b-xl items-center p-8">
             <div>
-                <img onClick={()=>router.push("./")} className="cursor-pointer bg-gray-300 rounded-full p-2" src="/favicon.ico" />
+                <img onClick={() => router.push("../")} className="cursor-pointer bg-gray-300 rounded-full p-2" src="/favicon.ico" />
             </div>
 
             <div className="flex items-center">
-                <button className="p-2" onClick={()=>router.push("./shop")}>SHOP</button>
+                <button className="p-2" onClick={() => router.push("./shop")}>SHOP</button>
                 <button className="p-2">CONTACT</button>
                 {/* <button className="p-2">SIGN IN</button> */}
                 {session ? (

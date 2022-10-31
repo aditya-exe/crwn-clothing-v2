@@ -1,10 +1,8 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import TopNavigation from "@/components/top-navigation";
-import { trpc } from "@/utils/trpc";
-import SHOP_DATA from "@/server/router/routes/data";
-import { useState } from "react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 
 interface ShopItemType {
   id: number,
@@ -28,29 +26,29 @@ const Home: NextPage = () => {
 
       <main>
         <TopNavigation />
-        <div className="mb-2" />
+        <div className="mb-6" />
         <div className="">
-          <div  className="flex justify-around min-h-[290px]">
-            <div onClick={() => router.push("/shop/mens")} className="group items-center border-2 border-slate-200 relative overflow-hidden max-w-[500px] max-h-[290px] rounded-xl cursor-pointer transition ease-in">
+          <div className="flex justify-around min-h-[290px]">
+            <div onClick={() => router.push({ pathname: "./collection/[id]", query: { id: "mens" } })} className="group items-center border-2 border-slate-200 relative overflow-hidden max-w-[500px] max-h-[290px] rounded-xl cursor-pointer transition ease-in">
               <img src="https://i.ibb.co/R70vBrQ/men.png" className="h-full w-full object-cover hover:blur-sm" alt="" />
               <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-extrabold text-violet-200">MENS</p>
             </div>
-            <div onClick={() => router.push("/shop/womens")} className="group items-center border-2 border-slate-200 relative overflow-hidden max-w-[500px] max-h-[290px] rounded-xl cursor-pointer  transition ease-in">
+            <div onClick={() => router.push({ pathname: "./collection/[id]", query: { id: "womens" } })} className="group items-center border-2 border-slate-200 relative overflow-hidden max-w-[500px] max-h-[290px] rounded-xl cursor-pointer  transition ease-in">
               <img src="https://i.ibb.co/GCCdy8t/womens.png" className="h-full w-full object-cover hover:blur-sm" alt="" />
               <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-extrabold text-violet-200">WOMENS</p>
             </div>
           </div>
           <div className="mt-5" />
           <div className="flex justify-around min-h-[250px]">
-            <div onClick={() => router.push("/shop/jackets")} className="mx-auto group min-w-[400px] relative border-2 border-slate-200 overflow-hidden max-w-[200px]  rounded-xl cursor-pointer transition ease-in">
+            <div onClick={() => router.push("./jackets")} className="mx-auto group min-w-[400px] relative border-2 border-slate-200 overflow-hidden max-w-[200px]  rounded-xl cursor-pointer transition ease-in">
               <img src="https://i.ibb.co/px2tCc3/jackets.png" className="h-full w-full group object-cover hover:blur-sm" alt="" />
               <p className="absolute text-violet-200 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-extrabold">JACKETS</p>
             </div>
-            <div onClick={() => router.push("/shop/sneakers")} className="mx-auto min-w-[400px] relative border-2 border-slate-200 overflow-hidden max-w-[200px] rounded-xl cursor-pointer transition ease-in">
+            <div onClick={() => router.push("./sneakers")} className="mx-auto min-w-[400px] relative border-2 border-slate-200 overflow-hidden max-w-[200px] rounded-xl cursor-pointer transition ease-in">
               <img src="https://i.ibb.co/0jqHpnp/sneakers.png" className="h-full w-full object-cover  hover:blur-sm" alt="" />
               <p className="absolute text-violet-200 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-extrabold">SNEAKERS</p>
             </div>
-            <div onClick={() => router.push("/shop/hats")} className="mx-auto min-w-[400px] relative border-2 border-slate-200 overflow-hidden max-w-[200px] rounded-xl cursor-pointer transition ease-in">
+            <div onClick={() => router.push("./hats")} className="mx-auto min-w-[400px] relative border-2 border-slate-200 overflow-hidden max-w-[200px] rounded-xl cursor-pointer transition ease-in">
               <img src="https://i.ibb.co/cvpntL1/hats.png" className="h-full w-full object-cover  hover:blur-sm" alt="" />
               <p className="absolute text-violet-200 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-extrabold">HATS</p>
             </div>
