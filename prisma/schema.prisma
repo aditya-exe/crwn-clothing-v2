@@ -50,6 +50,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    cart          Cart?
 }
 
 model VerificationToken {
@@ -73,12 +74,14 @@ model Sneakers {
     imageUrl String
     price    Int
 }
+
 model Jackets {
     id       Int    @unique
     name     String
     imageUrl String
     price    Int
 }
+
 model Womens {
     id       Int    @unique
     name     String
@@ -91,4 +94,11 @@ model Mens {
     name     String
     imageUrl String
     price    Int
+}
+
+model Cart {
+    id     Int    @id @default(autoincrement())
+    itemId Int
+    userId String @unique
+    user   User   @relation(fields: [userId], references: [id])
 }
