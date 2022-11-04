@@ -19,7 +19,7 @@ const TopNavigation = () => {
     return (
         <div className="flex min-w-full justify-between bg-purple-800 shadow-md rounded-b-xl items-center p-8">
             <div>
-                <img onClick={() => router.push("../")} className="cursor-pointer bg-gray-300 rounded-full p-2" src="/favicon.ico" />
+                <img onClick={() => router.push("/")} className="cursor-pointer bg-gray-300 rounded-full p-2" src="/favicon.ico" />
             </div>
 
             <div className="flex items-center">

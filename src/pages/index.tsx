@@ -2,12 +2,27 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import TopNavigation from "@/components/top-navigation";
 import { useRouter } from "next/router";
-import { Rubik } from "@next/font/google";
-
+import CollectionCard from "@/components/collection-card";
+import SHOP_DATA from "@/server/router/routes/data";
+import { trpc } from "@/utils/trpc";
 // const rubik = Rubik();
 
 const Home: NextPage = () => {
-  const router = useRouter();
+  // const x = SHOP_DATA[4]?.items;
+  // const a = trpc.useMutation(["shop.fill"]);
+
+  // const go = () => {
+  //   if (x) {
+  //     x.map(item => {
+  //       a.mutate({
+  //         id: item?.id,
+  //         name: item?.name,
+  //         imageUrl: item?.imageUrl,
+  //         price: item?.price,
+  //       })
+  //     })
+  //   }
+  // }
 
   return (
     <>
@@ -20,33 +35,17 @@ const Home: NextPage = () => {
       <main>
         <TopNavigation />
         <div className="mb-6" />
-        <div className="">
-          <div className="flex justify-around min-h-[290px]">
-            <div onClick={() => router.push({ pathname: "./[id]", query: { id: "mens" } })} className="group items-center border-2 border-slate-200 relative overflow-hidden max-w-[500px] max-h-[290px] rounded-xl cursor-pointer transition ease-in">
-              <img src="https://i.ibb.co/R70vBrQ/men.png" className="h-full w-full object-cover hover:blur-sm" alt="" />
-              <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-extrabold text-violet-200">MENS</p>
-            </div>
-            <div onClick={() => router.push({ pathname: "./[id]", query: { id: "womens" } })} className="group items-center border-2 border-slate-200 relative overflow-hidden max-w-[500px] max-h-[290px] rounded-xl cursor-pointer  transition ease-in">
-              <img src="https://i.ibb.co/GCCdy8t/womens.png" className="h-full w-full object-cover hover:blur-sm" alt="" />
-              <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-extrabold text-violet-200">WOMENS</p>
-            </div>
-          </div>
-          <div className="mt-5" />
-          <div className="flex justify-around min-h-[250px]">
-            <div onClick={() => router.push({ pathname: "./[id]", query: { id: "jackets" } })} className="mx-auto group min-w-[400px] relative border-2 border-slate-200 overflow-hidden max-w-[200px]  rounded-xl cursor-pointer transition ease-in">
-              <img src="https://i.ibb.co/px2tCc3/jackets.png" className="h-full w-full group object-cover hover:blur-sm" alt="" />
-              <p className="absolute text-violet-200 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-extrabold">JACKETS</p>
-            </div>
-            <div onClick={() => router.push({ pathname: "./[id]", query: { id: "sneakers" } })} className="mx-auto min-w-[400px] relative border-2 border-slate-200 overflow-hidden max-w-[200px] rounded-xl cursor-pointer transition ease-in">
-              <img src="https://i.ibb.co/0jqHpnp/sneakers.png" className="h-full w-full object-cover  hover:blur-sm" alt="" />
-              <p className="absolute text-violet-200 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-extrabold">SNEAKERS</p>
-            </div>
-            <div onClick={() => router.push({ pathname: "./[id]", query: { id: "hats" } })} className="mx-auto min-w-[400px] relative border-2 border-slate-200 overflow-hidden max-w-[200px] rounded-xl cursor-pointer transition ease-in">
-              <img src="https://i.ibb.co/cvpntL1/hats.png" className="h-full w-full object-cover  hover:blur-sm" alt="" />
-              <p className="absolute text-violet-200 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-5xl font-extrabold">HATS</p>
-            </div>
-          </div>
+        <div className="flex flex-wrap justify-around">
+          <CollectionCard collection={"mens"} imageUrl={"https://i.ibb.co/R70vBrQ/men.png"} />
+          <CollectionCard collection={"womens"} imageUrl={"https://i.ibb.co/GCCdy8t/womens.png"} />
         </div>
+        <div className="mt-5" />
+        <div className="flex flex-wrap justify-around">
+          <CollectionCard collection={"jackets"} imageUrl={"https://i.ibb.co/px2tCc3/jackets.png"} />
+          <CollectionCard collection={"sneakers"} imageUrl={"https://i.ibb.co/0jqHpnp/sneakers.png"} />
+          <CollectionCard collection={"hats"} imageUrl={"https://i.ibb.co/cvpntL1/hats.png"} />
+        </div>
+
       </main>
     </>
   );

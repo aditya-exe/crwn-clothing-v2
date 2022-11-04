@@ -1,12 +1,13 @@
+import { useCartStore } from "@/store/cart";
 import ShopItemType from "@/types/shop-item-type";
 import { trpc } from "@/utils/trpc";
 import { useSession } from "next-auth/react";
 
 const CollectionItem = ({ coll }: { coll: string }) => {
   const collection = trpc.useQuery(["shop.get-four", { collection: coll }]);
-  const cart = trpc.useQuery(["cart.get-all-items"]);
-  const addToCart = trpc.useMutation(["cart.add-single-item"]);
-  const { data: session } = useSession();
+  
+  const { addToCart, items } = useCartStore((state) => state);
+  // const itemCartCount = items[id]
 
 
   if (collection.isLoading) {
@@ -14,12 +15,7 @@ const CollectionItem = ({ coll }: { coll: string }) => {
   }
 
   const addItem = (item: ShopItemType) => {
-    if (session?.user?.id) {
-      addToCart.mutate({ id: item.id, userId: session.user.id });
-      console.log(cart.data);
-      return;
-    }
-    addToCart.mutate({ id: item.id });
+    addToCart(item, 1);
   }
 
   return (
