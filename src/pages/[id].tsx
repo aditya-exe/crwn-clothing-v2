@@ -29,7 +29,7 @@ const CollectionPage = () => {
         </div>
         <div className="grid sm:grid-cols-2 xl:grid-cols-3  grid-cols-1">
           {collection.data?.map(item =>
-            <div className="p-2">
+            <div key={item.id} className="p-2">
               <div className="border-solid items-center flex flex-col rounded-2xl">
                 <img className="object-cover h-[300px] rounded-xl w-[222px] overflow-hidden" src={item.imageUrl} />
               </div>
