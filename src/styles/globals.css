@@ -4,5 +4,5 @@
 
 
 body {
-    @apply bg-purple-900 font-sans text-white italic leading-relaxed;
+    @apply font-sans text-white italic leading-relaxed;
 }

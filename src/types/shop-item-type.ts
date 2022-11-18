@@ -2,5 +2,6 @@ export default interface ShopItemType {
   id: number,
   name: string,
   imageUrl: string,
-  price: number
+  price: number,
+  routeName: string,
 }

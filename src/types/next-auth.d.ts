@@ -1,5 +1,4 @@
 import { DefaultSession } from "next-auth";
-import ShopItemType from "./shop-item-type";
 
 declare module "next-auth" {
   /**
@@ -9,6 +8,5 @@ declare module "next-auth" {
     user?: {
       id: string;
     } & DefaultSession["user"];
-    cartItems: ShopItemType[];
   }
 }

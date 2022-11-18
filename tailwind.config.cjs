@@ -4,8 +4,14 @@ module.exports = {
   darkMode: "class",
   theme: {
     extend: {
-      
+
     },
   },
-  plugins: [],
+  corePlugins: {
+    aspectRatio: false,
+  },
+  plugins: [
+    require('@tailwindcss/aspect-ratio'),
+  ],
+
 };

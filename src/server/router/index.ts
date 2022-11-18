@@ -1,8 +1,8 @@
 // src/server/router/index.ts
 import { createRouter } from "./context";
 import superjson from "superjson";
-import { shopRouter } from "./routes/shop";
-import { cartRouter } from "./routes/cart";
+import { shopRouter } from "./routes/shopRoutes";
+import { cartRouter } from "./routes/cartRoutes";
 
 export const appRouter = createRouter()
   .transformer(superjson)

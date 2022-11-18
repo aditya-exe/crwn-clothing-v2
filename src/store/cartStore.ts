@@ -1,19 +1,21 @@
 import ShopItemType from "@/types/shop-item-type";
 import create from 'zustand';
+import { persist, devtools } from "zustand/middleware";
 
-type Item = ShopItemType & { quantity: number };
-export type CartItems = { [key: string]: Item };
+export type Item = ShopItemType & { quantity: number };
+export type CartItems = { [key: number]: Item };
 interface CartState {
   items: CartItems;
   // restoreCart: (cart: CartItems) => void;
   addToCart: (product: ShopItemType, quantity: number) => void;
   removeFromCart: (product: ShopItemType, quantity: number) => void;
+  restoreCart: (items: any) => void;
 }
 
 const storageItems: CartItems = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('cart') || '{}') : {};
 
 export const useCartStore = create<CartState>((set) => ({
-  items: {},
+  items: storageItems,
   // move actions to separate file
   addToCart: (product, quantity) => {
     set((state) => {
@@ -48,10 +50,12 @@ export const useCartStore = create<CartState>((set) => ({
         }
 
         delete updatedCart.items[item.id];
+        localStorage.setItem('cart', JSON.stringify(updatedCart.items));
         return updatedCart;
       }
 
-      return {
+
+      const updatedCart = {
         items: {
           ...state.items,
           [item.id]: {
@@ -60,6 +64,11 @@ export const useCartStore = create<CartState>((set) => ({
           }
         }
       }
+      localStorage.setItem('cart', JSON.stringify(updatedCart.items));
+      return updatedCart;
     })
-  }
+  },
+  restoreCart: (items) => {
+    
+  },
 }));

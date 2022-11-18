@@ -1,27 +1,32 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import TopNavigation from "@/components/top-navigation";
-import { useRouter } from "next/router";
 import CollectionCard from "@/components/collection-card";
-import SHOP_DATA from "@/server/router/routes/data";
+import { useSession } from "next-auth/react";
+import SHOP_DATA from "@/server/router/routes/data.js";
 import { trpc } from "@/utils/trpc";
-// const rubik = Rubik();
+import ShopItemType from "@/types/shop-item-type";
 
-const Home: NextPage = () => {
-  // const x = SHOP_DATA[4]?.items;
-  // const a = trpc.useMutation(["shop.fill"]);
+const Home: NextPage = (props) => {
+  const { data: session } = useSession();
+  // const fill = trpc.useMutation(["shop.fill-data"]);
 
-  // const go = () => {
-  //   if (x) {
-  //     x.map(item => {
-  //       a.mutate({
-  //         id: item?.id,
-  //         name: item?.name,
-  //         imageUrl: item?.imageUrl,
-  //         price: item?.price,
-  //       })
+  // const go = (e: any) => {
+  //   SHOP_DATA.forEach(collection => {
+  //     const routeName = collection.routeName;
+  //     let x: { routeName: string; itemId: number; name: string; imageUrl: string; price: number; }[] = [];
+  //     collection.items.forEach(item => {
+  //       const xxx = {
+  //         itemId: item.id,
+  //         name: item.name,
+  //         imageUrl: item.imageUrl,
+  //         price: item.price,
+  //         routeName: routeName,
+  //       };
+  //       x.push(xxx);
   //     })
-  //   }
+  //     fill.mutate(x);
+  //   })
   // }
 
   return (
@@ -34,6 +39,7 @@ const Home: NextPage = () => {
 
       <main>
         <TopNavigation />
+        {/* <button onClick={(e) => go(e)}>XXXXX</button> */}
         <div className="mb-6" />
         <div className="flex flex-wrap justify-around">
           <CollectionCard collection={"mens"} imageUrl={"https://i.ibb.co/R70vBrQ/men.png"} />

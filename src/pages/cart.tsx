@@ -1,12 +1,17 @@
 import TopNavigation from "@/components/top-navigation";
 import { useCartItems } from "@/lib/hooks/useCartItems";
-import { useCartStore } from "@/store/cart";
+import { useCartStore } from "@/store/cartStore";
 import ShopItemType from "@/types/shop-item-type";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
+import { useRouter } from "next/router";
+import { HiMinus, HiPlus } from "react-icons/hi";
 
 const Cart = () => {
   const { cartItems, cartTotal } = useCartItems();
   const { addToCart, removeFromCart } = useCartStore((state) => state);
+  const { data: session } = useSession();
+  const router = useRouter();
 
   const addItem = (item: ShopItemType) => {
     addToCart(item, 1);
@@ -16,39 +21,60 @@ const Cart = () => {
     removeFromCart(item, 1);
   }
 
+  const handleCheckout = () => {
+    if (session) {
+      
+    } else {
+      alert("Please sign in first");
+      router.push("signin");
+    }
+  }
+
   return (
     <>
       <Head>
-        <title>Sign In | CRWN Clothing</title>
+        <title>Cart | CRWN Clothing</title>
       </Head>
 
-      <main className="h-full w-full items-center">
+      <main>
         <TopNavigation />
-        <div className="flex mx-auto">TOTAL: {cartTotal}</div>
-        <div className="bg-slate-500 flex flex-col p-4 rounded-xl shadow-2xl gap-2 shadow-purple-500 w-[500px] mx-auto mt-10">
-          {Object.entries(cartItems).map(([id, item]) => (
-            <div className="bg-red-900 grid grid-cols-4 gap-3 min-h-[100px] p-4 rounded-xl ml-2">
-              <div className="h-[65px] w-[65px] rounded-lg overflow-hidden">
-                <img src={item.imageUrl} className="object-fill" alt="" />
+        <div className="h-screen w-full">
+          <h1 className="text-purple-900 flex flex-col text-center font-bold text-5xl uppercase">Shopping Cart</h1>
+          {/* <hr className="min-w-4xl" /> */}
+          <div className="bg-resd-900 max-w-4xl flex flex-col text-center mx-auto  min-h-[510px] rounded-xl">
+            {Object.values(cartItems).map(item => (
+              <div key={item.id}>
+                <div className="bg-gsreen-900 min-h-[150px] flex items-center  min-w-xl">
+                  <div className="overflow-hidden h-[180px] w-[150px] mt-2 mb-2 ml-14 rounded-lg">
+                    <img src={item.imageUrl} className="object-fill" alt="" />
+                  </div>
+                  <div className="text-black flex ml-2 justify-between w-[500px]">
+                    <div className="flex flex-col justify-start">
+                      <div className="flex space-x-1">
+                        <span className="font-bold">{item.name}</span>
+                        <span>- ${item.price}</span>
+                      </div>
+                    </div>
+                    <div className="space-x-3 flex items-center">
+                      <HiPlus onClick={() => addItem(item)} className="text-xl cursor-pointer" />
+                      <p>
+                        {item.quantity}
+                      </p>
+                      <HiMinus onClick={() => removeItem(item)} className="text-xl cursor-pointer" />
+                    </div>
+                  </div>
+                </div>
+                <hr className="font-extrabold" />
               </div>
-              <div className="text-md bg-blue-900">
-                <p>{item.name}</p>
-                <p>Price: {item.price}</p>
-                <p>{item.quantity}</p>
-              </div>
-              <div>
-                {item.price * item.quantity}
-              </div>
-              <div>
-                <button onClick={() => addItem(item)}>
-                  Plus
-                </button>
-                <button onClick={() => removeItem(item)}>
-                  Minus
-                </button>
-              </div>
+            ))}
+            <div className="mt-2 items-center space-x-2 flex justify-end text-black">
+              <p className="font-bold ml-3">
+                TOTAL:
+                ${cartTotal}
+              </p>
+              <button onClick={handleCheckout} className="bg-purple-600 text-white rounded-xl p-2">Checkout</button>
             </div>
-          ))}
+          </div>
         </div>
       </main>
 
