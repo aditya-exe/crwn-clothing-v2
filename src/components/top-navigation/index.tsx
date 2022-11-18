@@ -10,7 +10,7 @@ const TopNavigation = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const { cartItems }: { cartItems: CartItems } = useCartItems();
-  const persistCart = trpc.useMutation(["cart.add-cart"]);
+  // const persistCart = trpc.useMutation(["cart.add-cart"]);
 
   const handleSignIn = (e: { preventDefault: () => void; }) => {
     e.preventDefault();

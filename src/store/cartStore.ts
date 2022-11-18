@@ -9,7 +9,7 @@ interface CartState {
   // restoreCart: (cart: CartItems) => void;
   addToCart: (product: ShopItemType, quantity: number) => void;
   removeFromCart: (product: ShopItemType, quantity: number) => void;
-  restoreCart: (items: any) => void;
+  // restoreCart: (items: any) => void;
 }
 
 const storageItems: CartItems = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('cart') || '{}') : {};
@@ -60,15 +60,12 @@ export const useCartStore = create<CartState>((set) => ({
           ...state.items,
           [item.id]: {
             ...item,
-            quantity: state.items[item.id]?.quantity!! - 1,
+            quantity: state.items[item.id]?.quantity! - 1,
           }
         }
       }
       localStorage.setItem('cart', JSON.stringify(updatedCart.items));
       return updatedCart;
     })
-  },
-  restoreCart: (items) => {
-    
   },
 }));
