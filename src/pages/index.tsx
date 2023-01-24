@@ -1,31 +1,28 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import TopNavigation from "@/components/top-navigation";
-import CollectionCard from "@/components/collection-card";
-import { useSession } from "next-auth/react";
-import SHOP_DATA from "@/server/router/routes/data.js";
+import CollectionCard from "../components/collection-card";
+import { sendCollectionSchema } from "@/server/router/routes/shopRoutes";
+import SHOP_DATA from "../server/router/routes/data";
+import { ShopItemType } from "@/types/shop-item-type";
 import { trpc } from "@/utils/trpc";
-import ShopItemType from "@/types/shop-item-type";
 
-const Home: NextPage = (props) => {
-  const { data: session } = useSession();
-  // const fill = trpc.useMutation(["shop.fill-data"]);
-
-  // const go = (e: any) => {
-  //   SHOP_DATA.forEach(collection => {
-  //     const routeName = collection.routeName;
-  //     let x: { routeName: string; itemId: number; name: string; imageUrl: string; price: number; }[] = [];
-  //     collection.items.forEach(item => {
-  //       const xxx = {
+const Home: NextPage = () => {
+  // const { mutate } = trpc.useMutation(["shop.fill-data"]);
+  // const go = () => {
+  //   SHOP_DATA.map((coll) => {
+  //     const data: ShopItemType[] = [];
+  //     const routeName = coll.routeName;
+  //     coll.items.map((item) => {
+  //       data.push({
   //         itemId: item.id,
   //         name: item.name,
-  //         imageUrl: item.imageUrl,
   //         price: item.price,
-  //         routeName: routeName,
-  //       };
-  //       x.push(xxx);
-  //     })
-  //     fill.mutate(x);
+  //         imageUrl: item.imageUrl,
+  //         routeName
+  //       })
+  //     });
+  //     mutate(data);
   //   })
   // }
 
@@ -39,7 +36,7 @@ const Home: NextPage = (props) => {
 
       <main>
         <TopNavigation />
-        {/* <button onClick={(e) => go(e)}>XXXXX</button> */}
+        {/* <button className={"bg-red-900"} onClick={() => go()}>XXXXX</button> */}
         <div className="mb-6" />
         <div className="flex flex-wrap justify-around">
           <CollectionCard collection={"mens"} imageUrl={"https://i.ibb.co/R70vBrQ/men.png"} />
@@ -51,7 +48,6 @@ const Home: NextPage = (props) => {
           <CollectionCard collection={"sneakers"} imageUrl={"https://i.ibb.co/0jqHpnp/sneakers.png"} />
           <CollectionCard collection={"hats"} imageUrl={"https://i.ibb.co/cvpntL1/hats.png"} />
         </div>
-
       </main>
     </>
   );

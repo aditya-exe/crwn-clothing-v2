@@ -3,8 +3,6 @@ import Head from "next/head";
 import CollectionItem from "@/components/collection-item";
 
 const Shop = () => {
-
-
   return (
     <>
       <Head>
@@ -16,13 +14,9 @@ const Shop = () => {
       <main>
         <TopNavigation />
         <CollectionItem coll="hats" />
-        <div className="mt-5" />
         <CollectionItem coll="sneakers" />
-        <div className="mt-5" />
         <CollectionItem coll="jackets" />
-        <div className="mt-5" />
         <CollectionItem coll="womens" />
-        <div className="mt-5" />
         <CollectionItem coll="mens" />
       </main>
     </>

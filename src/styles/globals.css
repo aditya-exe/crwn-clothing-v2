@@ -4,5 +4,5 @@
 
 
 body {
-    @apply font-sans text-white italic leading-relaxed;
+    @apply font-sans text-white font-medium leading-relaxed bg-[#DFDBE5];
 }

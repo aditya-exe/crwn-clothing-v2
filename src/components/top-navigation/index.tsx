@@ -29,14 +29,17 @@ const TopNavigation = () => {
 
   return (
     <div className="flex min-w-full justify-between bg-purple-800 shadow-md rounded-b-xl items-center p-8">
-      <div>
-        <img onClick={() => router.push("/")} className="cursor-pointer bg-gray-300 rounded-full p-2" src="/favicon.ico" />
-      </div>
+      <Link href="/">
+        <img className="cursor-pointer bg-gray-300 rounded-full p-2" src="/favicon.ico" />
+      </Link>
 
       <div className="flex items-center">
-        <button className="p-2" onClick={() => router.push("./shop")}>SHOP</button>
-        <button className="p-2">CONTACT</button>
-        {/* <button className="p-2">SIGN IN</button> */}
+        <Link href={"/shop"}>
+          <p className="p-2 select-none cursor-pointer ">SHOP</p>
+        </Link>
+        <Link href="https://github.com/aditya-exe">
+          <button className="p-2">CONTACT</button>
+        </Link>
         {session ? (
           <button onClick={handleSignOut} className="p-2">SIGN OUT</button>
         ) : (

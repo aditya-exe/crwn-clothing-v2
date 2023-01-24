@@ -1,11 +1,14 @@
 import TopNavigation from "@/components/top-navigation";
 import { useCartItems } from "@/lib/hooks/useCartItems";
 import { useCartStore } from "@/store/cartStore";
-import ShopItemType from "@/types/shop-item-type";
+import { ShopItemType } from "@/types/shop-item-type";
+import getStripe from "@/utils/get-stripejs";
+import axios from "axios";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { HiMinus, HiPlus } from "react-icons/hi";
+
 
 const Cart = () => {
   const { cartItems, cartTotal } = useCartItems();
@@ -21,9 +24,15 @@ const Cart = () => {
     removeFromCart(item, 1);
   }
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (session) {
-      
+      const { data: { id } } = await axios.post("/api/checkout_sessions", {
+        items: Object.entries(cartItems).map(([_, { price, quantity }]) => ({
+          price, quantity
+        }))
+      });
+      const stripe = await getStripe();
+      await stripe?.redirectToCheckout({ sessionId: id });
     } else {
       alert("Please sign in first");
       router.push("signin");
@@ -43,7 +52,7 @@ const Cart = () => {
           {/* <hr className="min-w-4xl" /> */}
           <div className="bg-resd-900 max-w-4xl flex flex-col text-center mx-auto  min-h-[510px] rounded-xl">
             {Object.values(cartItems).map(item => (
-              <div key={item.id}>
+              <div key={item.itemId}>
                 <div className="bg-gsreen-900 min-h-[150px] flex items-center  min-w-xl">
                   <div className="overflow-hidden h-[180px] w-[150px] mt-2 mb-2 ml-14 rounded-lg">
                     <img src={item.imageUrl} className="object-fill" alt="" />
@@ -72,7 +81,7 @@ const Cart = () => {
                 TOTAL:
                 ${cartTotal}
               </p>
-              <button onClick={handleCheckout} className="bg-purple-600 text-white rounded-xl p-2">Checkout</button>
+              <button onClick={() => handleCheckout()} className="bg-purple-600 text-white rounded-xl p-2">Checkout</button>
             </div>
           </div>
         </div>
@@ -83,7 +92,3 @@ const Cart = () => {
 }
 
 export default Cart;
-
-function removeFromCart(item: ShopItemType, arg1: number) {
-  throw new Error("Function not implemented.");
-}

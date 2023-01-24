@@ -8,14 +8,14 @@ import type { AppType } from "next/app";
 import type { AppRouter } from "../server/router";
 import type { Session } from "next-auth";
 import "../styles/globals.css";
+import { CartProvider } from "use-shopping-cart";
 
-const MyApp: AppType<{ session: Session | null }> = ({
-  Component,
-  pageProps: { session, ...pageProps },
-}) => {
+const MyApp: AppType<{ session: Session | null }> = ({ Component, pageProps: { session, ...pageProps }, }) => {
   return (
     <SessionProvider session={session}>
-      <Component {...pageProps} />
+      <CartProvider shouldPersist={true} mode="payment" cartMode="client-only" stripe={process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!} successUrl="stripe.com" cancelUrl="twitter.com/dayhaysoos" currency="INR" allowedCountries={["IN", "US", "GB"]}  >
+        <Component {...pageProps} />
+      </CartProvider>
     </SessionProvider>
   );
 };

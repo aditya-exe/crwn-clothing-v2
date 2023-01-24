@@ -1,6 +1,13 @@
 import { createRouter } from "../context";
 import { z } from "zod";
 
+export const sendCollectionSchema = z.object({
+  itemId: z.number(),
+  name: z.string(),
+  imageUrl: z.string(),
+  price: z.number(),
+  routeName: z.string(),
+}).array();
 
 export const shopRouter = createRouter()
   .query("get-collection", {
@@ -45,13 +52,7 @@ export const shopRouter = createRouter()
     }
   })
   .mutation("fill-data", {
-    input: z.array(z.object({
-      itemId: z.number(),
-      name: z.string(),
-      imageUrl: z.string(),
-      price: z.number(),
-      routeName: z.string(),
-    })),
+    input: sendCollectionSchema,
     resolve: async ({ input, ctx }) => {
       return await ctx.prisma.item.createMany({
         data: input

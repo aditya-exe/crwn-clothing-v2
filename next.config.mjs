@@ -20,7 +20,10 @@ export default defineNextConfig({
     locales: ["en"],
     defaultLocale: "en",
   },
-  eslint:{
+  eslint: {
     ignoreDuringBuilds: true,
+  },
+  images: {
+    domains: ["i.ibb.co"]
   }
 });

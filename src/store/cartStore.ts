@@ -1,4 +1,4 @@
-import ShopItemType from "@/types/shop-item-type";
+import { ShopItemType } from "@/types/shop-item-type";
 import create from 'zustand';
 import { persist, devtools } from "zustand/middleware";
 
@@ -24,9 +24,9 @@ export const useCartStore = create<CartState>((set) => ({
       const updatedCart = {
         items: {
           ...state.items,
-          [product.id]: {
+          [product.itemId]: {
             ...item,
-            quantity: (state.items[product.id]?.quantity || 0) + quantity,
+            quantity: (state.items[product.itemId]?.quantity || 0) + quantity,
           },
         },
       };
@@ -42,14 +42,14 @@ export const useCartStore = create<CartState>((set) => ({
       const item: Item = { ...product, quantity };
 
 
-      if (state.items[item.id]?.quantity == 1) {
+      if (state.items[item.itemId]?.quantity == 1) {
         const updatedCart = {
           items: {
             ...state.items,
           }
         }
 
-        delete updatedCart.items[item.id];
+        delete updatedCart.items[item.itemId];
         localStorage.setItem('cart', JSON.stringify(updatedCart.items));
         return updatedCart;
       }
@@ -58,9 +58,9 @@ export const useCartStore = create<CartState>((set) => ({
       const updatedCart = {
         items: {
           ...state.items,
-          [item.id]: {
+          [item.itemId]: {
             ...item,
-            quantity: state.items[item.id]?.quantity! - 1,
+            quantity: state.items[item.itemId]?.quantity! - 1,
           }
         }
       }
